@@ -5,9 +5,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
 const cors = require("cors");
-const app = express(); 
+const app = express();
 const port = process.env.PORT ?? 8001;
-
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
@@ -20,15 +19,15 @@ app.use(express.urlencoded());
 app.use(express.json());
 
 //Constants and variables
-var siteId = "613e0eb5c3defc54432a5756";
+var siteId = "60e761d4be0c836d2973fe26";
 const config = {
   headers: {
     Authorization: `Bearer 4182751cd912ec9378c39911fa04d124dfa028819228ee1ee7856a770aa6fe52`,
     "accept-version": "1.0.0",
-    "content-type": "application/json"
+    "content-type": "application/json",
   },
 };
-var collectionId = "6141d59d547c1823798ee242";
+var collectionId = "6217d0419c76b24f174f8cb3";
 
 var url, result;
 
@@ -43,12 +42,12 @@ app.get("/data", async (req, res, next) => {
 
 // add a webflow item in a collection info
 app.post("/collection/item/add", async (req, res, next) => {
-  try{  
+  try {
     url = `https://api.webflow.com/collections/${collectionId}/items`;
-    var data = JSON.stringify({fields: req.body});
+    var data = JSON.stringify({ fields: req.body });
     result = await axios.post(url, data, config);
     res.send(JSON.stringify(result.data));
-   } catch(e){ 
-     console.log("An error has occured", e);
-   }
+  } catch (e) {
+    console.log("An error has occured", e);
+  }
 });
