@@ -29,7 +29,7 @@ const config = {
 };
 var collectionId = "62291cd7a326dc78a69c5fd3";
 
-var url, result;
+var url, result, numOfItems, remaining, counter;
 
 // Get the XML data
 app.get("/data", async (req, res, next) => {
@@ -42,9 +42,18 @@ app.get("/data", async (req, res, next) => {
 
 // add a webflow item in a collection info
 app.post("/collection/item/add", async (req, res, next) => {
+  remaining = req.query.rem;
+  numOfItems = req.query.tot;
+  if (remaining == numOfItems)
+    // First item is added
+    counter = 0;
+  if (remaining < numOfItems - 50 * (counter + 1)) {
+    console.log("Waiting started");
+    await setTimeout(console.log("Waiting is over"), 5000);
+  }
+  url = `https://api.webflow.com/collections/${collectionId}/items`;
+  var data = JSON.stringify({ fields: req.body });
   try {
-    url = `https://api.webflow.com/collections/${collectionId}/items`;
-    var data = JSON.stringify({ fields: req.body });
     result = await axios.post(url, data, config);
     res.send(JSON.stringify(result.data));
   } catch (e) {
