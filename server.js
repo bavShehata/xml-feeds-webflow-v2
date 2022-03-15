@@ -51,7 +51,7 @@ app.post("/collection/item/add", async (req, res, next) => {
   var data = JSON.stringify({ fields: req.body });
   try {
     await setTimeout(async () => {
-      console.log("Waiting started");
+      console.log("Remaining ", remaining, " items out of ", numOfItems);
       result = await axios.post(url, data, config);
       res.send(JSON.stringify(result.data));
       counter++;
