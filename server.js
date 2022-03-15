@@ -37,7 +37,7 @@ app.get("/data", async (req, res, next) => {
     "https://www.machinefinder.com/dealer_families/9336/machine_feed.xml?key=b562ff30-f65b-0131-e164-005056be003c&password=Deere4";
   result = await axios.post(url);
   res.set("Content-Type", "text/xml");
-  res.send(result.data);
+  res.send(result.data + remaining, numOfItems);
 });
 
 // add a webflow item in a collection info
@@ -47,15 +47,15 @@ app.post("/collection/item/add", async (req, res, next) => {
   if (remaining == numOfItems)
     // First item is added
     counter = 0;
-  if (remaining < numOfItems - 50 * (counter + 1)) {
-    console.log("Waiting started");
-    await setTimeout(console.log("Waiting is over"), 5000);
-  }
   url = `https://api.webflow.com/collections/${collectionId}/items`;
   var data = JSON.stringify({ fields: req.body });
   try {
-    result = await axios.post(url, data, config);
-    res.send(JSON.stringify(result.data));
+    if (remaining < numOfItems - 50 * (counter + 1)) {
+      console.log("Waiting started");
+      result = await axios.post(url, data, config);
+      res.send(JSON.stringify(result.data + remaining + numOfItems));
+      counter++;
+    }
   } catch (e) {
     console.log("An error has occured", e);
   }
