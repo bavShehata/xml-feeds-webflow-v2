@@ -50,17 +50,12 @@ app.post("/collection/item/add", async (req, res, next) => {
   url = `https://api.webflow.com/collections/${collectionId}/items`;
   var data = JSON.stringify({ fields: req.body });
   try {
-    if (remaining - 10 <= numOfItems - 45 * counter) {
-      setTimeout(async () => {
-        console.log("Waiting started");
-        result = await axios.post(url, data, config);
-        res.send(JSON.stringify(result.data));
-        counter++;
-      }, 5000);
-    } else {
+    await setTimeout(async () => {
+      console.log("Waiting started");
       result = await axios.post(url, data, config);
       res.send(JSON.stringify(result.data));
-    }
+      counter++;
+    }, 1000);
   } catch (e) {
     console.log("An error has occured", e);
   }
