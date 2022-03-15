@@ -37,7 +37,7 @@ app.get("/data", async (req, res, next) => {
     "https://www.machinefinder.com/dealer_families/9336/machine_feed.xml?key=b562ff30-f65b-0131-e164-005056be003c&password=Deere4";
   result = await axios.post(url);
   res.set("Content-Type", "text/xml");
-  res.send(result.data + remaining, numOfItems);
+  res.send(result.data);
 });
 
 // add a webflow item in a collection info
