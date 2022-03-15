@@ -44,18 +44,12 @@ app.get("/data", async (req, res, next) => {
 app.post("/collection/item/add", async (req, res, next) => {
   remaining = req.query.rem;
   numOfItems = req.query.tot;
-  if (remaining == numOfItems)
-    // First item is added
-    counter = 0;
   url = `https://api.webflow.com/collections/${collectionId}/items`;
   var data = JSON.stringify({ fields: req.body });
   try {
-    await setTimeout(async () => {
-      console.log("Remaining ", remaining, " items out of ", numOfItems);
-      result = await axios.post(url, data, config);
-      res.send(JSON.stringify(result.data));
-      counter++;
-    }, 1000);
+    console.log("Remaining ", remaining, " items out of ", numOfItems);
+    result = await axios.post(url, data, config);
+    res.send(JSON.stringify(result.data));
   } catch (e) {
     console.log("An error has occured", e);
   }
