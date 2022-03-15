@@ -53,7 +53,7 @@ app.post("/collection/item/add", async (req, res, next) => {
     if (remaining < numOfItems - 50 * (counter + 1)) {
       console.log("Waiting started");
       result = await axios.post(url, data, config);
-      res.send(JSON.stringify(result.data + remaining + numOfItems));
+      res.send(JSON.stringify(result.data));
       counter++;
     }
   } catch (e) {
