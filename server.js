@@ -27,7 +27,7 @@ const config = {
     "content-type": "application/json",
   },
 };
-var collectionId = "6217d0419c76b24f174f8cb3";
+var collectionId = "62291cd7a326dc78a69c5fd3";
 
 var url, result;
 
