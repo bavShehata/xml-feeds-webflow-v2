@@ -45,6 +45,10 @@ app.post("/collection/item/add", async (req, res, next) => {
   remaining = req.query.rem;
   numOfItems = req.query.tot;
   url = `https://api.webflow.com/collections/${collectionId}/items`;
+  console.log(
+    "##############################################DATA IS########################################\n",
+    req.body
+  );
   var data = JSON.stringify({ fields: req.body });
   try {
     console.log("Remaining ", remaining, " items out of ", numOfItems);
